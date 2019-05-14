@@ -33,9 +33,9 @@ kramdown:
 #
 owner:
   name: DarkingLight
-  avatar: darkinglight-logo.png
-  job: "A jekyll theme"
-  bio: "A simple and awesome blog theme powered by jekyll."
+  avatar: avatar.jpg
+  job: "Programmer"
+  bio: "5 year PHP Developer, 2 year Golang Developer, familiar with C++ also"
   email: 929747376@qq.com
   disqus-shortname:
   twitter: #username
@@ -47,7 +47,7 @@ owner:
     ad-client:
     ad-slot:
   bing-verify:
-  github: https://github.com/darkinglight
+  github: darkinglight
   gitlab: #username
   stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
   linkedin: #username
