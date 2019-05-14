@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "Golang进阶之路: 参数传 值传递||引用传递"
-date:   2019-05-08 17:00:00 +0800
-categories: light-dante
+excerpt: "Just about passing by value or passing by reference in golang."
+categories: [golang]
+comments: true
 ---
 
 ### Reference

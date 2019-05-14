@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "golang learning: Context"
-date:   2019-05-08 09:00:00 +0800
-categories: light-dante
+excerpt: "Just about context package in golang."
+categories: [golang]
+comments: true
 ---
 >Context在golang中出现的频率非常高，因为它实现了golang中两个非常常见的功能。Context的作用主要有两个：在不同的goroutine中传递channel，在不同上下文中传递变量。
 针对第二个功能：在上下文中传递变量，我们以Context.Value表示，进行简单介绍。Context.Value可以理解为一个全局变量的容器，只要传递了Context，在所有上下文环境都能使用其中的变量。显而易见，全局变量是具有争议性的，在易于使用的同时，容易被滥用而增加维护成本。在Context.Value的使用范围上，则是见仁见智。个人观点，在上层方法间传递参数，该用还是得用,底层方法则尽量少用。过多依赖Context.Value容易使接口的定义失准，相反，使用明确参数名和结构体会利于接口的定义。

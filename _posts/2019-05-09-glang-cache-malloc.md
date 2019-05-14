@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "Golang进阶之路: 内存分配"
-date:   2019-05-09 14:00:00 +0800
-categories: light-dante
+excerpt: "Just about cache allocation in golang."
+categories: [golang]
+comments: true
 ---
 
 ### Reference
