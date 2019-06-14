@@ -1,4 +1,0 @@
-- name: php-dev-env
-  descr: "PHP develop environment base on Docker."
-  image: pong.png
-  github: https://github.com/darkinglight/php-dev-env
