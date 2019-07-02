@@ -51,6 +51,40 @@ flag包支持的参数类型为以下几类:
 2. 注册参数
 3. 解析参数
 
+### 注册参数源码分析
+{% highlight golang %}
+// StringVar defines a string flag with specified name, default value, and usage string.
+// The argument p points to a string variable in which to store the value of the flag.
+func StringVar(p *string, name string, value string, usage string) {
+	CommandLine.Var(newStringValue(value, p), name, usage)
+}
+// Var defines a flag with the specified name and usage string. The type and
+// value of the flag are represented by the first argument, of type Value, which
+// typically holds a user-defined implementation of Value. For instance, the
+// caller could create a flag that turns a comma-separated string into a slice
+// of strings by giving the slice the methods of Value; in particular, Set would
+// decompose the comma-separated string into the slice.
+func (f *FlagSet) Var(value Value, name string, usage string) {
+	// Remember the default value as a string; it won't change.
+	flag := &Flag{name, usage, value, value.String()}
+	_, alreadythere := f.formal[name]
+	if alreadythere {
+		var msg string
+		if f.name == "" {
+			msg = fmt.Sprintf("flag redefined: %s", name)
+		} else {
+			msg = fmt.Sprintf("%s flag redefined: %s", f.name, name)
+		}
+		fmt.Fprintln(f.Output(), msg)
+		panic(msg) // Happens only if flags are declared with identical names
+	}
+	if f.formal == nil {
+		f.formal = make(map[string]*Flag)
+	}
+	f.formal[name] = flag
+}
+{% endhighlight %}
+
 ### 解析参数源码分析
 源代码的逻辑还是很清晰的，所以不再过多展开，只做简单注释。此处，省略了'0x12a'这种字符串是如何被解析成数字的，各个数据类型的字符串解析方式都不同，可以具体看下源码
 {% highlight golang %}
