@@ -5,7 +5,8 @@ excerpt: "Usage of flag in golang"
 categories: [golang]
 comments: true
 ---
-    Golang命令行参数的使用，官方提供了flag。大致使用格式: `scriptname -boolflag1 -intflag2=1 -stringflag=abc`。flag包提供了这部分脚本参数的解析功能，方便开发者。
+
+    Golang命令行参数的使用，官方提供了flag。大致使用格式: `scriptname -boolflag1 -intflag2=1 -stringflag=abc` 。flag包提供了这部分脚本参数的解析功能，方便开发者。
 
 ### 简单使用
 {% highlight golang %}
@@ -20,19 +21,30 @@ func main() {
 	var flag1 int
 	flag.IntVar(&intflag, "intflag", 1234, "help message for intflag")
 	flag.Parse()
-	fmt.Println("intflag's value is ", intflag)
+	fmt.Println("intflag value is ", intflag)
 }
 {% endhighlight %}
 
 命令行执行该脚本，效果如下:
-{% highlight bash %}
+{% highlight shell %}
 ./flagtest
---> intflag's value is  1234 //返回默认值
+--> intflag value is  1234 //返回默认值
 ./flagtest -intflag=100
---> intflag's value is  100 //返回传递的参数值
+--> intflag value is  100 //返回传递的参数值
 {% endhighlight %}
 
 ### 可设置的值类型
+flag包支持的参数类型为以下几类:
+
+#### bool
+1. 参数为1, t, T, true, TRUE, True表示真
+2. 参数为0, f, F, false, FALSE, False表示假
+
+#### int，int64，uint，uint64, float64
+
+#### string
+
+#### duration
 
 ### 整个命令行参数的调用过程可以细分为3步:
 1. 定义参数变量
@@ -42,7 +54,7 @@ func main() {
 ### 解析参数源码分析
 {% highlight golang %}
 func Parse() {
-	CommandLine.Parse(os.Args[1:])
+	CommandLine.Parse(os.Args[1:]) //flag的入参为Args[1:],即除脚本名外的所有以空格分隔的命令行参数
 }
 
 func (f *FlagSet) Parse(arguments []string) error {
@@ -51,7 +63,7 @@ func (f *FlagSet) Parse(arguments []string) error {
 	for {
 		seen, err := f.parseOne()
 		if seen {
-			continue
+			continue   //这里，通过seen的返回值，控制是否继续解析flag，如果解析过程中发现--，-，seen返回为false，则终止解阿析
 		}
 		if err == nil {
 			break
